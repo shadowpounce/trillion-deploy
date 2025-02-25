@@ -1,0 +1,12 @@
+.GsapSlider {
+    position: relative;
+    // overflow: hidden;
+    width: 100%;
+    height: calc(var(--lvh, 1lvh) * 100);
+
+    // background-color: #0e68f9;
+
+    @media screen and (max-width: $s-tablet-l) {
+        height: calc(var(--svh, 1svh) * 100);
+    }
+}

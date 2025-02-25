@@ -1,0 +1,13 @@
+.Page404 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(var(--svh, 1svh) * 100);
+}
+
+.Page404_text {
+    font-size: get-d(80px);
+
+    white-space: nowrap;
+}

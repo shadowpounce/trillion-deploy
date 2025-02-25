@@ -1,0 +1,100 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 101vh;
+  width: 100%;
+  padding: clamp(135px, get-d(200px), 220px) clamp(16px, get-d(80px), 85px)
+    clamp(40px, get-d(100px), 100px) clamp(16px, get-d(80px), 85px);
+
+  backdrop-filter: blur(1px);
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+    translate: 0 50%;
+
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .bottomContainer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+
+    @media (max-width: $s-tablet-l) {
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      font-size: 40px;
+      max-width: none;
+    }
+
+    @media (max-width: $s-tablet) {
+      gap: 24px;
+      font-size: 32px;
+    }
+
+    .section {
+      max-width: 519px;
+      width: 100%;
+      color: $c-white;
+      font-family: var(--font-geist-sans);
+      font-size: 56px;
+      font-weight: 300;
+      line-height: 100%;
+      letter-spacing: get-d(-4.48px);
+
+      @media (max-width: $s-tablet-l) {
+        font-size: 40px;
+        max-width: none;
+        text-align: center;
+      }
+
+      @media (max-width: $s-tablet) {
+        font-size: 32px;
+      }
+
+      .bold {
+        font-weight: 500;
+      }
+    }
+
+    .description {
+      margin-right: get-d(170px);
+      max-width: get-d(540px);
+      width: 100%;
+
+      color: rgba(255, 255, 255, 0.8);
+      font-family: var(--font-geist-sans);
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 130%;
+      letter-spacing: get-d(-0.8px);
+
+      @media (max-width: $s-tablet-l) {
+        max-width: none;
+        margin-right: 0;
+        text-align: center;
+      }
+
+      @media (max-width: $s-tablet) {
+        font-size: 16px;
+      }
+    }
+  }
+}

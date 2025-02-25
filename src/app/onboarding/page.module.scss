@@ -1,0 +1,328 @@
+.pageContainer {
+  position: relative;
+  min-height: 100vh;
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $c-background;
+  position: relative;
+  & canvas {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+  }
+
+  @media (max-width: $s-tablet) {
+    height: min-content;
+  }
+
+  .pageBackground {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .formWrapper {
+    position: relative;
+    height: min-content;
+    min-width: 400px;
+    width: get-d(630px);
+    margin: clamp(120px,get-d(200px),200px) clamp(16px,get-d(80px),85px) clamp(40px,get-d(100px),100px) clamp(16px,get-d(80px),85px);
+    z-index: 1;
+
+    @media (max-width: $s-tablet) {
+      min-width: min-content;
+    }
+
+    .formBackground {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+    }
+
+    .formContainer {
+      position: relative;
+      z-index: 1;
+      padding: clamp(24px,get-d(49px),56px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(28px,get-d(32px),32px);
+
+      .title {
+        color: #F6F6F7;
+        font-family: var(--font-geist-sans);
+        font-size: clamp(18px, get-d(30px), 42px);
+
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: get-d(-3.2px);
+        margin-bottom: clamp(22px,get-d(40px),40px);
+      }
+
+      .description {
+        color: rgba(163, 172, 204, 0.88);
+        font-family: var(--font-geist-sans);
+        font-size: clamp(10.5px, get-d(15px), 18px);
+
+        font-weight: 300;
+        line-height: 120%;
+        letter-spacing: get-d(-0.591px);
+      }
+
+      .subtitle {
+        color: $c-white;
+        font-family: var(--font-geist-sans);
+        font-size: clamp(12px, get-d(15px), 15px);
+
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: get-d(-0.8px);
+        margin-bottom: clamp(13px,get-d(24px),24px);
+      }
+
+      .radioGroup {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: get-d(20px);
+
+        .radioItem {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: get-d(8px);
+          color: $c-white;
+          font-family: var(--font-geist-sans);
+          font-size: clamp(10.5px, get-d(15px), 15px);
+
+          font-weight: 300;
+          line-height: 120%;
+          letter-spacing: get-d(-0.788px);
+          cursor: pointer;
+
+          .radio {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+          }
+
+          .checkboxMarkContainer {
+            position: relative;
+            height: clamp(14px,get-d(25px),28px);
+            width: clamp(14px,get-d(25px),28px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+
+            img {
+              position: absolute;
+              height: clamp(14px,get-d(25px),28px);
+              width: clamp(14px,get-d(25px),28px);
+            }
+          }
+        }
+      }
+
+      .inputsWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(8px,get-d(16px),16px);
+        margin-top: clamp(13px,get-d(24px),42px);
+
+        .inputsContainer {
+          display: grid;
+          grid-gap: clamp(8px,get-d(16px),16px);
+          grid-template-columns: repeat(2, calc(50% - clamp(4px,get-d(8px),8px)));
+          &.inputsContainerFull {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        & .inputsContainerMini {
+          & > span {
+            margin-bottom: get-d(20px);
+            font-size: get-d(14px);
+            @media (max-width: $s-tablet-l) {
+              margin-bottom: clamp(20px, get-t(20px), 20px);
+              font-size: clamp(14px, get-t(14px), 14px);
+            }
+            @media (max-width: $s-tablet) {
+              margin-bottom: clamp(20px, get-m(20px), 20px);
+              font-size: clamp(14px, get-m(14px), 14px);
+            }
+          }
+        }
+
+        :global {
+          .PhoneInputCountry {
+            background: #1C2438;
+            padding: get-d(8px);
+            border-radius: get-d(8px);
+            display: flex;
+            align-items: center;
+            align-self: center;
+            @media (max-width: $s-tablet-l) {
+              padding: get-t(8px);
+              border-radius: get-t(8px);
+            }
+            @media (max-width: $s-tablet) {
+              padding: get-m(8px);
+              border-radius: get-m(8px);
+            }
+          }
+          .PhoneInputCountryIcon {
+            background-color: transparent !important;
+            box-shadow: none !important;
+            width: auto;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            font-family: var(--font-geist-mono);
+            font-size: get-d(16px);
+            font-weight: 300;
+            line-height: get-d(22.4px);
+            letter-spacing: -0.04em;
+            color: $c-white;
+            & span {
+              color: rgba($c-white, 0.4);
+              margin: 0 get-d(10px) 0 0;
+            }
+            @media (max-width: $s-tablet-l) {
+              font-size: сlamp(16px,get-t(16px),16px);
+              // font-size: get-t(16px);
+              line-height: get-t(22.4px);
+              & span {
+                margin: 0 get-t(10px) 0 0;
+              }
+            }
+            @media (max-width: $s-tablet) {
+              font-size: сlamp(16px,get-m(16px),16px);
+              line-height: get-m(22.4px);
+              & span {
+                margin: 0 get-m(10px) 0 0;
+              }
+            }
+          }
+        }
+      }
+
+      .label {
+        color: $c-white;
+        font-family: var(--font-geist-sans);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: get-d(16.8px);
+        letter-spacing: get-d(-0.56px);
+        margin-bottom: clamp(13px,get-d(24px),24px);
+
+        @media (max-width: $s-tablet) {
+          font-size: 10.5px;
+        }
+      }
+
+      .input {
+        height: clamp(34px,get-d(49px),50px);
+        width: 100%;
+        border-radius: 16px;
+        border: 2px solid rgba(#ffffff, 20%);
+        background: rgba(#ffffff, 5%);
+        padding: 0 clamp(11px,get-d(20px),20px);
+
+        color: $c-white;
+        font-family: var(--font-geist-sans);
+        font-size: 10px;
+        font-weight: 300;
+        line-height: get-d(16.8px);
+        letter-spacing: get-d(-0.48px);
+
+        &.PhoneInput {
+          padding: get-d(8px);
+          @media (max-width: $s-tablet-l) {
+            padding: get-t(8px);
+          }
+          @media (max-width: $s-tablet) {
+            padding: get-m(8px);
+          }
+        }
+
+        
+
+        
+
+        @media (max-width: $s-tablet) {
+          border-radius: 12px;
+        }
+
+        :global {
+          
+          & .PhoneInputInput {
+            color: $c-white;
+            font-family: var(--font-geist-sans);
+            font-size: 10px;
+            font-weight: 300;
+            line-height: get-d(16.8px);
+            letter-spacing: get-d(-0.48px);
+            &::placeholder {
+              color: rgba(255, 255, 255, 0.6);
+            }
+          }
+
+          
+        }
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+
+      .input:valid, .input:has(input:valid) {
+        border-color: #1eb93da0;
+      }
+
+      .valid {
+        border-color: #1eb93da0;
+      }
+      
+      .invalid {
+        border-color: rgba(#ffffff, 20%) !important;
+      }
+
+      .noteContainer {
+        border-radius: 11.169px;
+        border: 0.279px solid #E2E7FF;
+        background: #000000;
+        backdrop-filter: blur(27.893991470336914px);
+        padding: clamp(13px,get-d(24px),28px);
+        margin-bottom: clamp(24px,get-d(32px),32px);
+
+        .note {
+          text-align: center;
+          background: linear-gradient(89deg, #686C90 -6.44%, #EEEFFF 45.27%, #686C90 97.32%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-family: var(--font-geist-sans);
+          font-size: clamp(7.5px, get-d(13.5px), 15px);
+
+          font-weight: 300;
+          line-height: 120%;
+          letter-spacing: get-d(-0.4px);
+
+          a {
+            display: inline-block;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

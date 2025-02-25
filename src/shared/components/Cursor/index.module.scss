@@ -1,0 +1,15 @@
+.item {
+  width: get-d(60px);
+  aspect-ratio: 1 / 1;
+  position: fixed;
+  background: $c-white;
+  border-radius: 50%;
+  z-index: 200;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  opacity: 0;
+  pointer-events: none;
+  @media (max-width: $s-tablet-l) {
+    display: none;
+  }
+}

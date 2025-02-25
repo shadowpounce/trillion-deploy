@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100%;
+  padding: clamp(135px,get-d(200px),220px) clamp(16px,get-d(80px),85px) clamp(40px,get-d(100px),100px) clamp(16px,get-d(80px),85px);
+  // background-color: $c-color;
+  position: relative;
+  z-index: 1;
+
+  .topContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .text {
+      max-width: 857px;
+      width: 100%;
+      color: $c-white;
+      text-align: center;
+      font-family: var(--font-geist-sans);
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 110%;
+      letter-spacing: get-d(-2.56px);
+      margin-top: 56px;
+
+      @media (max-width: $s-tablet-l) {
+        font-size: 24px;
+        margin-top: 32px;
+      }
+
+      @media (max-width: $s-tablet-l) {
+        margin-top: 24px;
+      }
+    }
+  }
+
+  .bottomContainer {}
+}

@@ -1,0 +1,251 @@
+.Accordion {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: get-d(28px) 0;
+
+    cursor: pointer;
+
+    @media screen and (max-width: $s-tablet-l) {
+        padding: get-t(32px) 0;
+    }
+
+    @media screen and (max-width: $s-mobile) {
+        padding: get-m(32px) 0;
+    }
+
+    & + & {
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: get-d(1px);
+
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                #ffffff4d 50%,
+                transparent 100%
+            );
+
+            @media screen and (max-width: $s-tablet-l) {
+                height: get-t(1px);
+            }
+
+            @media screen and (max-width: $s-mobile) {
+                height: get-m(1px);
+            }
+        }
+    }
+
+    &.active {
+        .Accordion_button {
+            &::after {
+                transform: translate(-50%, -50%) rotate(0);
+            }
+        }
+    }
+}
+
+.Accordion_header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: get-d(45px);
+    padding: 0 get-d(180px) 0 0;
+
+    z-index: 5;
+
+    @media screen and (max-width: $s-tablet-l) {
+        gap: get-t(32px);
+        padding: 0 get-t(60px) 0 0;
+    }
+
+    @media screen and (max-width: $s-mobile) {
+        gap: get-m(32px);
+        padding: 0 get-m(60px) 0 0;
+    }
+}
+
+.Accordion_num {
+    color: #151515;
+    font-size: get-d(24px);
+    font-weight: 600;
+    line-height: 120%;
+
+    opacity: 0.3;
+
+    @media screen and (max-width: $s-tablet-l) {
+        display: none;
+    }
+}
+
+.Accordion_title {
+    font-size: get-d(18px);
+    line-height: 100%;
+    font-weight: 500;
+    letter-spacing: get-d(-0.36px);
+
+    @include textGradient(
+        linear-gradient(180deg, #d3d5e5 0.17%, #aeb0c9 99.83%)
+    );
+
+    @media screen and (max-width: $s-tablet-l) {
+        font-size: get-t(18px);
+        letter-spacing: get-t(-0.36px);
+    }
+
+    @media screen and (max-width: $s-mobile) {
+        font-size: get-m(18px);
+        letter-spacing: get-m(-0.36px);
+    }
+}
+
+.Accordion_button {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: get-d(50px);
+    aspect-ratio: 1 / 1;
+
+    border: get-d(1px) solid rgba(21, 21, 21, 0.15);
+    border-radius: 50%;
+
+    z-index: 5;
+
+    @media screen and (max-width: $s-tablet-l) {
+        width: get-t(30px);
+
+        border-width: get-t(1px);
+    }
+
+    @media screen and (max-width: $s-mobile) {
+        width: get-m(30px);
+
+        border-width: get-m(1px);
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        height: get-d(3px);
+        aspect-ratio: 7 / 1;
+
+        background-color: #747cff;
+        border-radius: 1000px;
+
+        transition: 0.5s ease-in-out;
+        transition-property: transform;
+
+        will-change: transform;
+
+        @media screen and (max-width: $s-tablet-l) {
+            height: get-t(2px);
+        }
+
+        @media screen and (max-width: $s-mobile) {
+            height: get-m(2px);
+        }
+    }
+
+    &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+}
+
+.Accordion_description {
+    overflow: hidden;
+    transition: height 0.5s ease;
+
+    z-index: 2;
+}
+
+.Accordion_description_inner {
+    padding-top: get-d(28px);
+
+    @media screen and (max-width: $s-tablet-l) {
+        padding-top: get-t(28px);
+    }
+
+    @media screen and (max-width: $s-mobile) {
+        padding-top: get-m(28px);
+    }
+}
+
+.Accordion_description_item {
+}
+
+.Accordion_content {
+    p {
+        @include font(get-d(16px), 400, 1.4);
+        min-height: 1em;
+
+        @media screen and (max-width: $s-tablet-l) {
+            @include font(get-t(16px), 400, 1.4);
+        }
+
+        @media screen and (max-width: $s-mobile) {
+            @include font(get-m(16px), 400, 1.4);
+        }
+    }
+
+    strong,
+    b {
+        font-weight: 600;
+    }
+
+    u {
+        text-decoration: underline;
+    }
+
+    ol {
+        display: flex;
+        flex-direction: column;
+        gap: get-d(16px);
+        list-style: none;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 1.5em;
+
+            @include font(get-d(16px), 400, 1.4);
+            letter-spacing: 0.02em;
+
+            padding: get-d(16px) get-d(20px);
+            border-radius: get-d(16px);
+            background: #f7f9fc;
+
+            &::before {
+                content: "";
+                display: block;
+                width: 1em;
+                height: 1em;
+                flex-shrink: 0;
+                flex-shrink: 0;
+                background: url("/assets/image/mark-default.svg");
+                background-size: contain;
+                background-position: center;
+            }
+
+            strong {
+                font-weight: 600;
+            }
+        }
+    }
+}

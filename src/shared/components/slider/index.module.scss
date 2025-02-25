@@ -1,0 +1,28 @@
+.Slider {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    gap: get-d(30px);
+
+    will-change: transform;
+
+    &.row {
+        flex-direction: column;
+        flex: 1 0 0;
+
+        &.to-right {
+            align-items: flex-end;
+        }
+    }
+
+    &.col {
+    }
+
+    & div {
+        will-change: transform;
+    }
+}
+
+.Slider_inner {
+    width: fit-content;
+}

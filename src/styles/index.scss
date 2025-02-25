@@ -1,0 +1,8 @@
+@import "./mixins.scss";
+@import "./variables.scss";
+@import "./global.scss";
+
+[disabled] {
+  opacity: 0.7;
+  pointer-events: none;
+}

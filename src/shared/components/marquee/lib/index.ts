@@ -1,0 +1,1 @@
+export { createMarquee } from './createMarquee';

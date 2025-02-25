@@ -1,0 +1,70 @@
+.NavbarItem {
+    position: relative;
+
+    color: rgba(139, 143, 214, 0.5);
+    font-size: get-d(14px);
+    line-height: 100%;
+
+    @media screen and (max-width: $s-tablet-l) {
+        font-size: get-t(14px);
+    }
+
+    @media screen and (max-width: $s-mobile) {
+        font-size: get-m(14px);
+    }
+
+    &:hover {
+        a {
+            opacity: 0.6;
+        }
+    }
+
+    a {
+        transition: 0.2s ease-in-out;
+        transition-property: opacity;
+    }
+
+    & + & {
+        padding-left: get-d(20px);
+        margin-left: get-d(20px);
+
+        @media screen and (max-width: $s-tablet-l) {
+            padding-left: get-t(20px);
+            margin-left: get-t(20px);
+        }
+
+        @media screen and (max-width: $s-mobile) {
+            padding-left: get-m(20px);
+            margin-left: get-m(20px);
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            translate: -50% -50%;
+
+            height: get-d(12px);
+            aspect-ratio: 1 / 1.5;
+
+            background-image: url("/assets/arrow.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            @media screen and (max-width: $s-tablet-l) {
+                translate: -50% -50%;
+
+                height: get-t(12px);
+            }
+
+            @media screen and (max-width: $s-mobile) {
+                height: get-m(12px);
+            }
+        }
+    }
+
+    &:last-child {
+        color: #fff;
+    }
+}

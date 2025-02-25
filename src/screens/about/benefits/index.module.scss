@@ -1,0 +1,145 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: clamp(85px, get-d(100px), 120px) clamp(16px, get-d(80px), 85px)
+    clamp(40px, get-d(100px), 100px) clamp(16px, get-d(80px), 85px);
+  // background-color: $c-color;
+  position: relative;
+  z-index: 1;
+
+  .title {
+    color: $c-white;
+    font-family: var(--font-geist-sans);
+    font-size: 104px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 110%;
+    letter-spacing: get-d(-8.32px);
+
+    @media (max-width: $s-tablet-l) {
+      font-size: 64px;
+    }
+
+    @media (max-width: $s-tablet) {
+      font-size: 48px;
+    }
+
+    .bold {
+      font-weight: 500;
+    }
+  }
+
+  .benefitsContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding-inline: 20px;
+
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 20px,
+      #000 calc(100% - 20px),
+      transparent 100%
+    );
+
+    @media (min-width: 1920px) {
+      max-width: 1920px !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+    }
+
+    :global {
+      .swiper-pagination {
+        display: flex !important;
+        margin-bottom: 1px;
+      }
+      .swiper-slide {
+        transition: scale 0.5s;
+        @media (max-width: 1340px) {
+          scale: 1 !important;
+        }
+      }
+    }
+
+    .benefitContainer {
+      position: relative;
+      width: 100%;
+      height: auto;
+      margin-top: get-d(120px);
+      // filter: brightness(2);
+
+      .benefitBackground {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+      }
+
+      .benefitContent {
+        width: 100%;
+        height: 100%;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 32px;
+
+        @media (max-width: $s-tablet) {
+          padding: 24px;
+        }
+
+        .index {
+          color: $c-white;
+          width: 100%;
+          font-family: var(--font-geist-sans);
+          font-size: 24px;
+          font-weight: 400;
+          line-height: 140%;
+          letter-spacing: -0.949px;
+          margin-bottom: 120px;
+        }
+
+        .benefitName {
+          color: #f6f6f7;
+          text-align: center;
+          font-family: var(--font-geist-sans);
+          font-size: 36px;
+          font-weight: 300;
+          line-height: 110%;
+          letter-spacing: get-d(-0.72px);
+          margin-top: 16px;
+
+          @media (max-width: $s-tablet) {
+            font-size: 24px;
+          }
+        }
+
+        .benefitDescription {
+          text-align: center;
+          font-family: var(--font-geist-sans);
+          font-size: 16px;
+          font-weight: 300;
+          line-height: 130%;
+          letter-spacing: get-d(-0.28px);
+          margin-top: 24px;
+
+          & i {
+            background: linear-gradient(87deg, #9097d8 -3.75%, #eeefff 94.31%);
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+
+          @media (max-width: $s-tablet) {
+            margin-top: 16px;
+          }
+        }
+      }
+    }
+  }
+}

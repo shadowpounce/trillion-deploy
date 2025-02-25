@@ -1,0 +1,26 @@
+.InArticle_title {
+    font-weight: 400;
+    font-size: 14px;
+
+    opacity: 0.4;
+}
+
+.InArticle_headings {
+    margin-top: 40px;
+}
+
+.InArticle_headings_item {
+    color: #fff;
+
+    cursor: pointer;
+
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #b9c3f4;
+    }
+
+    & + & {
+        margin-top: 20px;
+    }
+}

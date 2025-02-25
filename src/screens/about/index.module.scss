@@ -1,0 +1,58 @@
+.wrapper {
+    position: relative;
+    width: 100vw;
+
+    .container {
+        width: 100%;
+
+        .topContainer {
+            position: relative;
+            z-index: 1;
+            &:nth-of-type(2) {
+                .video {
+                    margin-bottom: -100vh;
+                }
+            }
+            &:nth-of-type(3) {
+                .video {
+                    margin-bottom: -1vh;
+                }
+            }
+
+            .video {
+                position: sticky;
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                filter: brightness(0.35);
+            }
+        }
+    }
+
+    .background {
+        width: 100%;
+        background: $c-background;
+        position: relative;
+        .video {
+            margin-bottom: -100vh;
+        }
+    }
+
+    .progressContainer {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        left: get-d(25px);
+        z-index: 100;
+    }
+
+    .scrollToContainer {
+        position: fixed;
+        bottom: get-d(100px);
+        right: get-d(80px);
+        z-index: 100;
+    }
+}

@@ -1,0 +1,29 @@
+.GsapSliderInsideWrap {
+    padding-bottom: get-d(1px);
+
+    transition: 0.7s ease-in-out;
+    transition-property: padding-bottom;
+
+    &:global(#home-last-slider) {
+        &:global(.active) {
+            padding-bottom: get-d(300px);
+        }
+    }
+}
+
+.GsapSliderInside {
+    position: relative;
+    overflow-x: clip;
+    width: 100%;
+    height: calc(var(--lvh, 1lvh) * 170);
+
+    pointer-events: none;
+}
+
+.GsapSliderInside_inner {
+    position: sticky;
+    top: 0;
+    overflow: visible;
+    width: 100%;
+    height: calc(var(--lvh, 1lvh) * 100);
+}

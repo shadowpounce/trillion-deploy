@@ -1,0 +1,27 @@
+.SliderLine {
+    display: flex;
+    gap: get-d(30px);
+    width: fit-content;
+
+    opacity: 0;
+
+    &.row {
+        height: fit-content;
+
+        .SliderLine_item {
+            height: 100%;
+            width: auto;
+        }
+    }
+
+    &.col {
+        flex-direction: column;
+        flex: 1 0 0;
+
+        .SliderLine_item {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+}

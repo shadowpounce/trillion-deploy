@@ -1,0 +1,14 @@
+.StickyWrapper {
+    position: relative;
+    width: 100%;
+    height: calc(var(--lvh, 1lvh) * 200);
+    z-index: -1;
+}
+
+.StickyWrapper_content {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: fit-content;
+    overflow-x: clip;
+}

@@ -1,0 +1,216 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 39px;
+  width: 100%;
+  padding: clamp(100px, get-d(150px), 120px) clamp(16px, get-d(80px), 85px)
+    clamp(40px, get-d(100px), 100px) clamp(16px, get-d(80px), 85px);
+  // background-color: $c-color;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 10%);
+
+  .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  @media (max-width: $s-tablet-l) {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .topContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+      color: $c-white;
+      font-family: var(--font-geist-sans);
+      font-size: 56px;
+      font-weight: 500;
+      line-height: 110%;
+      letter-spacing: get-d(-1.68px);
+      margin-top: 20px;
+
+      @media (max-width: $s-tablet-l) {
+        font-size: 40px;
+        text-align: center;
+        margin-top: 32px;
+      }
+
+      @media (max-width: $s-tablet) {
+        font-size: 32px;
+        margin-top: 24px;
+      }
+    }
+
+    .description {
+      max-width: 601px;
+      width: 100%;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: var(--font-geist-sans);
+      text-align: center;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 130%;
+      letter-spacing: get-d(-0.48px);
+      margin-top: 20px;
+
+      @media (max-width: $s-tablet) {
+        margin-top: 24px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .cardsContainer {
+    position: relative;
+    overflow: visible;
+
+    display: flex;
+    width: 60%;
+    height: 500px;
+    // scale: 1.25;
+    transform-origin: top center;
+
+    @media (max-width: 1000px) {
+      scale: 1;
+      width: 100%;
+    }
+
+    .cardWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      position: relative;
+
+      .cardHeader {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-bottom: none;
+        padding: 12px 20px 10px;
+        backdrop-filter: blur(10.063934326171875px);
+        background-color: #0d1426;
+
+        @include textGradient(
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 100%) 8%,
+            rgba(143, 206, 255, 1) 100%
+          )
+        );
+
+        color: $c-white;
+        text-align: center;
+        font-family: var(--font-geist-sans);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: get-d(-0.48px);
+        text-transform: uppercase;
+
+        @media (max-width: $s-tablet-l) {
+          font-size: 16px;
+        }
+
+        @media (max-width: $s-tablet) {
+          font-size: 12px;
+        }
+      }
+
+      .cardContainer {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 24px;
+        overflow: hidden;
+
+        & video {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          inset: 0;
+          object-fit: cover;
+          pointer-events: none;
+          z-index: -1;
+        }
+
+        .cardBackground {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          z-index: 0;
+        }
+
+        .tagsContainer {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 4px;
+          padding: get-d(16px) get-d(16px) 0;
+        }
+
+        .secureIcon {
+          height: get-d(60px);
+          width: get-d(60px);
+          margin-bottom: get-d(24px);
+        }
+
+        .timeIcon {
+          height: get-d(60px);
+          width: get-d(60px);
+          margin-top: get-d(24px);
+        }
+
+        .spotImage {
+          height: get-d(150px);
+          width: get-d(170px);
+        }
+
+        .description {
+          padding: 0 20px;
+          color: #d0dbfa;
+          text-align: center;
+          font-family: var(--font-geist-sans);
+          font-size: 14px;
+          font-weight: 300;
+          line-height: 140%;
+          letter-spacing: get-d(-0.42px);
+          margin-bottom: 24px;
+          position: relative;
+
+          @media (max-width: $s-tablet-l) {
+            font-size: 16px;
+            margin-bottom: 24px;
+          }
+
+          @media (max-width: $s-tablet) {
+            font-size: 14px;
+            margin-bottom: 16px;
+          }
+
+          .italic {
+            font-style: italic;
+          }
+        }
+      }
+    }
+  }
+}
