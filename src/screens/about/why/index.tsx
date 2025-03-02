@@ -1,61 +1,65 @@
-'use client';
+"use client"
 
-import { useRef, useEffect, FC, use } from 'react';
-import Image, { StaticImageData } from 'next/image';
-import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import styles from './index.module.scss';
-import Badge from 'shared/components/Badge';
-import Tag from 'shared/components/Tag';
-import cardBackgroundSource from 'assets/benefit_card_bg.png';
-import spotImageSource from 'assets/spot.png';
-import bg from "assets/Benefits.png";
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
-import { Chars } from '@/utils/chars';
-import { useGsapSliderContext } from 'layouts/gsap-slider';
-import { useGsapSlideContext } from 'layouts/gsap-slider/ui/gsap-slide';
+import bg from "assets/Benefits.webp"
+import cardBackgroundSource from "assets/benefit_card_bg.webp"
+import spotImageSource from "assets/spot.webp"
+import gsap from "gsap"
+import {ScrollTrigger} from "gsap/ScrollTrigger"
+import Image, {StaticImageData} from "next/image"
+import {FC, use, useEffect, useRef} from "react"
+import {Pagination} from "swiper/modules"
+import {Swiper, SwiperRef, SwiperSlide} from "swiper/react"
+
+import {Chars} from "@/utils/chars"
+
+import {useGsapSliderContext} from "layouts/gsap-slider"
+import {useGsapSlideContext} from "layouts/gsap-slider/ui/gsap-slide"
+
+import Badge from "shared/components/Badge"
+import Tag from "shared/components/Tag"
+
+import styles from "./index.module.scss"
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface ICard {
-  title: string;
-  tags: string[];
-  video: string;
-  text: string;
-  spotImageSource?: StaticImageData;
+  title: string
+  tags: string[]
+  video: string
+  text: string
+  spotImageSource?: StaticImageData
 }
 
 const Card: FC<ICard> = ({title, tags, video, text, spotImageSource}) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    const videoElement = videoRef.current;
+  const videoRef = useRef<HTMLVideoElement>(null)
 
-    const handleTimeUpdate = () => {
+  // useEffect(() => {
+  //   const videoElement = videoRef.current
 
-      if(videoElement) {
-        const loopStart = videoElement.duration - 2
-        const loopEnd = videoElement.duration
-        if (videoElement.currentTime >= loopEnd - 0.1) {
-          console.log("loop")
-          videoElement.currentTime = loopStart
-          videoElement.play()
-        }
-      }
-    }
+  //   const handleTimeUpdate = () => {
+  //     if (videoElement) {
+  //       const loopStart = videoElement.duration - 2
+  //       const loopEnd = videoElement.duration
+  //       if (videoElement.currentTime >= loopEnd - 0.1) {
+  //         console.log("loop")
+  //         videoElement.currentTime = loopStart
+  //         videoElement.play()
+  //       }
+  //     }
+  //   }
 
-    if(videoElement) {
-      videoElement.ontimeupdate = handleTimeUpdate
-    }
-  }, [])
+  //   if (videoElement) {
+  //     videoElement.ontimeupdate = handleTimeUpdate
+  //   }
+  // }, [])
+
   return (
     <div className={styles.cardWrapper}>
-      <div className={styles.cardHeader}>
-        {title}
-      </div>
+      <div className={styles.cardHeader}>{title}</div>
       <div className={styles.cardContainer}>
         <Image
           src={cardBackgroundSource as StaticImageData}
-          alt='Card Backgroud'
+          alt="Card Backgroud"
           className={styles.cardBackground}
         />
         <div className={styles.tagsContainer}>
@@ -66,11 +70,11 @@ const Card: FC<ICard> = ({title, tags, video, text, spotImageSource}) => {
         {spotImageSource && (
           <Image
             src={spotImageSource}
-            alt='Secure'
+            alt="Secure"
             className={styles.spotImage}
           />
         )}
-        <video ref={videoRef} src={video} muted playsInline></video>
+        <video ref={videoRef} src={video} loop muted playsInline />
         <p className={styles.description}>
           <Chars str={text} isSpace></Chars>
         </p>
@@ -79,69 +83,71 @@ const Card: FC<ICard> = ({title, tags, video, text, spotImageSource}) => {
   )
 }
 
-
-
-
 const Why = () => {
-  const swiperRef = useRef<SwiperRef | null>(null);
-
+  const swiperRef = useRef<SwiperRef | null>(null)
 
   const {stage, setStage, direction} = useGsapSliderContext()
   const {isActiveSlide, slideIndex} = useGsapSlideContext()
 
   useEffect(() => {
-      if (isActiveSlide && stage == "before-transition") {
-          setStage("transition")
-      }
+    if (isActiveSlide && stage == "before-transition") {
+      setStage("transition")
+    }
   }, [isActiveSlide, stage, direction])
 
+  const tl = useRef<gsap.core.Timeline>()
+
   useEffect(() => {
-    const tl = gsap.timeline({
-      defaults: {
-        duration: 2,
-        ease: 'sine',
-      },
-      scrollTrigger: {
-        trigger: `.${styles.container}`,
-        start: 'top center',
-        end: 'bottom top',
-        toggleActions: 'play none none none',
-        // markers: true,
-        onEnter: () => {
-          const videos = document.querySelectorAll(`.${styles.container} video`) as NodeListOf<HTMLVideoElement>;
-          // console.log(videos)
-          videos.forEach((video) => {
-            if(video.paused) video.play();
-          });
-        }
-      },
-    });
-    // const texts = document.querySelectorAll(`.${styles.description}`);
-    // texts.forEach((text, i) => {
-    //   const chars = text.querySelectorAll(`.char`)
-    //   tl.fromTo(chars, { opacity: 0, y: 25, stagger: 0.1 }, { opacity: 1, y: 0, stagger: 0.1 }, i === 0 ? 0 : 1.5)
-    // })
-    tl
-    // .fromTo(`.${styles.title}`, { opacity: 0, yPercent: 100}, { opacity: 1, yPercent: 0}, 0)
-    // .fromTo(`.${styles.container} .badge`, { scale: 0, duration: 1 }, { scale: 1, duration: 1 }, 0)
-    .fromTo(`.${styles.cardWrapper}`, { opacity: 0, yPercent: 50, stagger: 0.25}, { opacity: 1, yPercent: 0, stagger: 0.25}, 1)
-    .fromTo(`.${styles.bg}`, { opacity: 0 }, { opacity: 1 }, 1.5)
+    const videos = document.querySelectorAll(
+      `.${styles.container} video`,
+    ) as NodeListOf<HTMLVideoElement>
+
+    if (isActiveSlide) {
+      tl.current?.play()
+
+      videos.forEach((video) => {
+        if (video.paused) video.play()
+      })
+    } else {
+      tl.current?.pause(0)
+
+      videos.forEach((video) => {
+        if (video.paused) video.pause()
+      })
+    }
+  }, [isActiveSlide])
+
+  useEffect(() => {
+    tl.current = gsap
+      .timeline({
+        paused: true,
+        defaults: {
+          duration: 0.7,
+          ease: "power2.out",
+        },
+      })
+      .fromTo(
+        `.${styles.cardWrapper}`,
+        {opacity: 0, yPercent: 50},
+        {opacity: 1, yPercent: 0, stagger: 0.25},
+        0,
+      )
+      .fromTo(`.${styles.bg}`, {opacity: 0}, {opacity: 1}, 0.5)
   }, [])
+
   return (
     <section className={styles.container}>
-      <Image
-        src={bg as StaticImageData}
-        alt='bg'
-        className={styles.bg}
-        fill
-      />
+      <Image src={bg as StaticImageData} alt="bg" className={styles.bg} fill />
       <div className={styles.topContainer}>
-        <Badge title='Why Us?' />
+        <Badge title="Why Us?" />
         <h3 className={styles.title}>Powerful Execution Engine</h3>
         <p className={styles.description}>
-            <Chars str="Experience seamless trading across all execution channels—including
+          <Chars
+            str="Experience seamless trading across all execution channels—including
           API, voice, chat, and GUI—with personalized support and expert
-          guidance for your most sophisticated trades." isSpace></Chars>
+          guidance for your most sophisticated trades."
+            isSpace
+          />
         </p>
       </div>
       <Swiper
@@ -157,37 +163,52 @@ const Why = () => {
             slidesPerView: 3,
           },
         }}
-        pagination={{ clickable: true }}
+        pagination={{clickable: true}}
         modules={[Pagination]}
         spaceBetween={24}
         className={styles.cardsContainer}
       >
         <SwiperSlide>
-          <Card 
-            title="Comprehensive Market Connectivity" 
-            tags={['Exchanges', 'Brokers', 'Dark Pools', 'Market Makers', "ECN's"]} 
-            video="card 1 v2.mp4" 
-            text="Secure and direct market access to the top 25+ centralized order books and top 15+ market makers">
-          </Card>
+          <Card
+            title="Comprehensive Market Connectivity"
+            tags={[
+              "Exchanges",
+              "Brokers",
+              "Dark Pools",
+              "Market Makers",
+              "ECN's",
+            ]}
+            video="/videos/card_1_cut.mp4"
+            text="Secure and direct market access to the top 25+ centralized order books and top 15+ market makers"
+          />
         </SwiperSlide>
-        <SwiperSlide><Card 
-          title="Smart Order Execution" 
-          tags={['VWAP', 'Fill or kill', 'TWAP', 'RFQ', 'Market', 'Limit']} 
-          video="card 2 v2.mp4" 
-          text="Unparalleled deep liquidity via our algorithmic
+        <SwiperSlide>
+          <Card
+            title="Smart Order Execution"
+            tags={["VWAP", "Fill or kill", "TWAP", "RFQ", "Market", "Limit"]}
+            video="/videos/card_2.mp4"
+            text="Unparalleled deep liquidity via our algorithmic
               smart-order-routing engine — perform any order type: Market,
-              limit, fill-or-kill, TWAP, VWAP, Iceberg and more" spotImageSource={spotImageSource}>
-        </Card></SwiperSlide>
-        <SwiperSlide><Card 
-          title="Dynamic Settlement and Reporting" 
-          tags={['24/7/365 Liquidity', 'Advanced post-trade', "Intra-Day Settlements"]} 
-          video="card 3 v2.mp4" 
-          text="Uninterrupted 24/7/365 liquidity and execution. Advanced
-              post-trade reporting capabilities">
-        </Card></SwiperSlide>
+              limit, fill-or-kill, TWAP, VWAP, Iceberg and more"
+            spotImageSource={spotImageSource}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card
+            title="Dynamic Settlement and Reporting"
+            tags={[
+              "24/7/365 Liquidity",
+              "Advanced post-trade",
+              "Intra-Day Settlements",
+            ]}
+            video="/videos/card_3_cut.mp4"
+            text="Uninterrupted 24/7/365 liquidity and execution. Advanced
+              post-trade reporting capabilities"
+          />
+        </SwiperSlide>
       </Swiper>
     </section>
-  );
-};
+  )
+}
 
-export default Why;
+export default Why

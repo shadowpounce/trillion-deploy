@@ -38,7 +38,7 @@ const Wrapper1 = () => {
   const refCont1 = useRef<HTMLDivElement>(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [isPhone, setIsPhone] = useState<undefined | boolean>(undefined)
-  const src = isPhone ? "videoPhone.mp4" : "videoComp.mp4"
+  const src = isPhone ? "videoPhone.mp4" : "/videos/videoComp.mp4"
 
   useEffect(() => {
     setIsPhone(window.innerWidth < 768)
@@ -303,7 +303,7 @@ const Wrapper2 = () => {
           muted
           playsInline
           className={styles.video}
-          src="Comp 1.mp4"
+          src="/videos/comp.mp4"
           // Добавляем буферизацию
           // buffer="auto"
           // Добавляем приоритет загрузки

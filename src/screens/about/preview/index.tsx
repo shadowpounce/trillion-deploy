@@ -40,7 +40,7 @@ const Preview = ({}) => {
     if (isActiveSlide) {
       tl.current?.play()
     } else {
-      tl.current?.reverse()
+      tl.current?.pause(0)
     }
   }, [isActiveSlide])
 
@@ -92,24 +92,24 @@ const Preview = ({}) => {
 
   return (
     <section className={`${styles.container} preview-section`}>
-      <FlyingParticles color="#fff" speed={500}></FlyingParticles>
+      <FlyingParticles isActive={isActiveSlide} color="#fff" speed={500} />
       <h2 className={styles.title}>
         <Chars
           str={`Built for Performance,
         <br />
         <span class=${styles.bold}> Driven by Innovation.</span>`}
           isSpace
-        ></Chars>
+        />
       </h2>
       <div className={styles.illustrationContainer}>
         <div className={styles.light}>
-          <video ref={video} src="5_1.mp4" muted playsInline></video>
+          <video ref={video} src="/videos/border.mp4" muted playsInline></video>
         </div>
         <Image
-          src={"/images/innovation.png"}
+          src={"/images/innovation.webp"}
           alt="Illustration"
           fill
-          priority
+          quality={100}
         />
       </div>
     </section>

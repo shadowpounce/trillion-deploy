@@ -87,7 +87,7 @@ const Benefits = () => {
     if (isActiveSlide) {
       tl.current?.play()
     } else {
-      tl.current?.reverse()
+      tl.current?.pause(0)
     }
   }, [isActiveSlide])
 

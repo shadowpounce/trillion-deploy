@@ -42,6 +42,26 @@ export const BgVideo_3: FC<IBgVideo_3> = ({}) => {
     }
   }
 
+  const show = () => {
+    gsap.to(refRoot.current, {
+      autoAlpha: 1,
+      duration: 0.5,
+    })
+  }
+
+  const hide = () => {
+    gsap.to(refRoot.current, {
+      autoAlpha: 0,
+      duration: 0.5,
+      onComplete() {
+        if (refVideo.current) {
+          refVideo.current.pause()
+          refVideo.current.currentTime = 0
+        }
+      },
+    })
+  }
+
   useEffect(() => {
     if (window.innerWidth < 1025) return
     if (!refVideo.current) return
@@ -49,57 +69,38 @@ export const BgVideo_3: FC<IBgVideo_3> = ({}) => {
     console.log(stage, currentTime)
 
     if (stage <= 6) {
-      gsap.to(refRoot.current, {
-        autoAlpha: 0,
-        duration: 0.5,
-        onComplete() {
-          if (refVideo.current) {
-            refVideo.current.pause()
-            refVideo.current.currentTime = 0
-          }
-        },
-      })
-      console.log("pause 2")
+      hide()
     } else if (stage == 7 && currentTime >= 2.05) {
       refVideo.current.pause()
-      console.log("pause 3")
+      show()
+    } else if (stage == 8 && currentTime >= 6) {
+      refVideo.current.pause()
+      show()
     } else if (stage >= 9) {
-      gsap.to(refRoot.current, {
-        autoAlpha: 0,
-        duration: 0.5,
-        onComplete() {
-          if (refVideo.current) {
-            refVideo.current.pause()
-            refVideo.current.currentTime = 0
-          }
-        },
-      })
-      console.log("pause 2")
+      hide()
     } else {
-      gsap.to(refRoot.current, {
-        autoAlpha: 1,
-        duration: 0.5,
-      })
+      refVideo.current.play()
+      show()
     }
   }, [currentTime, stage])
 
-  useEffect(() => {
-    gsapDelay(() => {
-      refVideo.current?.play()
-      setIsOnce(true)
-    }, 2.5)
-  }, [])
+  // useEffect(() => {
+  //   gsapDelay(() => {
+  //     refVideo.current?.play()
+  //     setIsOnce(true)
+  //   }, 2.5)
+  // }, [])
 
-  useEffect(() => {
-    isOnce && refVideo.current?.play()
+  // useEffect(() => {
+  //   isOnce && refVideo.current?.play()
 
-    if (stage == 0) {
-      gsap.to(refRoot.current, {
-        autoAlpha: 1,
-        duration: 0.5,
-      })
-    }
-  }, [stage])
+  //   if (stage == 0) {
+  //     gsap.to(refRoot.current, {
+  //       autoAlpha: 1,
+  //       duration: 0.5,
+  //     })
+  //   }
+  // }, [stage])
 
   // useObserver(
   //     refRoot,
@@ -123,7 +124,7 @@ export const BgVideo_3: FC<IBgVideo_3> = ({}) => {
         onTimeUpdate={handleTimeUpdate}
       >
         <source
-          src={isPhone ? "videoPhone.mp4" : "Comp 1.mp4"}
+          src={isPhone ? "videoPhone.mp4" : "/videos/comp.mp4"}
           type="video/mp4"
         />
         Your browser does not support the video tag.

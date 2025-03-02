@@ -21,38 +21,38 @@ const Trusted = () => {
     }
   }, [isActiveSlide, stage, direction])
 
-  const tl = useRef<gsap.core.Timeline>()
+  // const tl = useRef<gsap.core.Timeline>()
 
-  useEffect(() => {
-    if (isActiveSlide) {
-      tl.current?.play()
-    } else {
-      tl.current?.reverse()
-    }
-  }, [isActiveSlide])
+  // useEffect(() => {
+  //   if (isActiveSlide) {
+  //     tl.current?.play()
+  //   } else {
+  //     tl.current?.pause(0)
+  //   }
+  // }, [isActiveSlide])
 
-  useEffect(() => {
-    tl.current = gsap
-      .timeline({
-        paused: true,
-        defaults: {
-          duration: 2,
-          ease: "sine",
-        },
-      })
-      .fromTo(
-        `.${styles.description} .char`,
-        {opacity: 0, y: 25, stagger: 0.1},
-        {opacity: 1, y: 0, stagger: 0.1},
-        0,
-      )
-      .fromTo(
-        `.${styles.section} .char`,
-        {opacity: 0, y: 25, stagger: 0.1},
-        {opacity: 1, y: 0, stagger: 0.1},
-        0,
-      )
-  }, [])
+  // useEffect(() => {
+  //   tl.current = gsap
+  //     .timeline({
+  //       paused: true,
+  //       defaults: {
+  //         duration: 2,
+  //         ease: "sine",
+  //       },
+  //     })
+  //     .fromTo(
+  //       `.${styles.description} .char`,
+  //       {opacity: 0, y: 25, stagger: 0.1},
+  //       {opacity: 1, y: 0, stagger: 0.1},
+  //       0,
+  //     )
+  //     .fromTo(
+  //       `.${styles.section} .char`,
+  //       {opacity: 0, y: 25, stagger: 0.1},
+  //       {opacity: 1, y: 0, stagger: 0.1},
+  //       0,
+  //     )
+  // }, [])
 
   return (
     <section className={styles.container}>

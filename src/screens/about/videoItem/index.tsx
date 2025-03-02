@@ -42,6 +42,26 @@ export const BgVideo: FC<IBgVideo> = ({}) => {
     }
   }
 
+  const show = () => {
+    gsap.to(refRoot.current, {
+      autoAlpha: 1,
+      duration: 0.5,
+    })
+  }
+
+  const hide = () => {
+    gsap.to(refRoot.current, {
+      autoAlpha: 0,
+      duration: 0.5,
+      onComplete() {
+        if (refVideo.current) {
+          refVideo.current.pause()
+          refVideo.current.currentTime = 0
+        }
+      },
+    })
+  }
+
   useEffect(() => {
     if (window.innerWidth < 1025) return
     if (!refVideo.current) return
@@ -50,27 +70,15 @@ export const BgVideo: FC<IBgVideo> = ({}) => {
 
     if ((stage == 0 || stage == -1) && currentTime > 5.6) {
       refVideo.current.pause()
-      console.log("pause 1")
+      show()
     } else if (stage == 1 && currentTime > 10) {
       refVideo.current.pause()
-      console.log("pause 2")
+      show()
     } else if (stage >= 2) {
-      console.log("pause 3")
-      gsap.to(refRoot.current, {
-        autoAlpha: 0,
-        duration: 0.5,
-        onComplete() {
-          if (refVideo.current) {
-            refVideo.current.pause()
-            refVideo.current.currentTime = 0
-          }
-        },
-      })
+      hide()
     } else {
-      gsap.to(refRoot.current, {
-        autoAlpha: 1,
-        duration: 0.5,
-      })
+      refVideo.current.play()
+      show()
     }
   }, [currentTime, stage])
 
@@ -85,10 +93,7 @@ export const BgVideo: FC<IBgVideo> = ({}) => {
     isOnce && refVideo.current?.play()
 
     if (stage == 0) {
-      gsap.to(refRoot.current, {
-        autoAlpha: 1,
-        duration: 0.5,
-      })
+      show()
     }
   }, [stage])
 
@@ -114,7 +119,7 @@ export const BgVideo: FC<IBgVideo> = ({}) => {
         onTimeUpdate={handleTimeUpdate}
       >
         <source
-          src={isPhone ? "Crystal Bg 2_1 iPhone.mp4" : "Crystal Bg 2_1.mp4"}
+          src={isPhone ? "Crystal Bg 2_1 iPhone.mp4" : "/videos/Crystal.mp4"}
           type="video/mp4"
         />
         Your browser does not support the video tag.

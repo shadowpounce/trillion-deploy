@@ -1,11 +1,14 @@
 "use client"
 
+import {useGSAP} from "@gsap/react"
 import Ticker from "framer-motion-ticker"
 import gsap from "gsap"
 import {ScrollTrigger} from "gsap/ScrollTrigger"
 import Image, {StaticImageData} from "next/image"
-import {FC} from "react"
+import {FC, useRef} from "react"
 import {useEffect} from "react"
+
+import {gsapDelay} from "utils/gsap/gsapDelay"
 
 import {useGsapSliderContext} from "layouts/gsap-slider"
 import {useGsapSlideContext} from "layouts/gsap-slider/ui/gsap-slide"
@@ -20,12 +23,22 @@ type TickerProps = {
   direction: "right" | "left"
   duration?: number
   logos: any
+  isPlaying?: boolean
 }
 
-const Row: FC<TickerProps> = ({direction, duration = 100, logos}) => {
+const Row: FC<TickerProps> = ({
+  isPlaying = true,
+  direction,
+  duration = 100,
+  logos,
+}) => {
   return (
     <div className={styles.wrapper}>
-      <Ticker direction={direction === "right" ? 1 : -1} duration={duration}>
+      <Ticker
+        isPlaying={isPlaying}
+        direction={direction === "right" ? 1 : -1}
+        duration={duration}
+      >
         {logos.length &&
           logos.map(({logo}: {logo: StaticImageData}, i: number) => {
             return (
@@ -52,34 +65,50 @@ const Partners = () => {
     }
   }, [isActiveSlide, stage, direction])
 
+  const tl = useRef<gsap.core.Timeline>()
+
   useEffect(() => {
-    const tl = gsap.timeline({
-      defaults: {
-        duration: 1,
-        ease: "sine",
-      },
-      scrollTrigger: {
-        trigger: `.${styles.container}`,
-        start: "top center",
-        end: "bottom top",
-        toggleActions: "play none none none",
-      },
+    if (isActiveSlide) {
+      tl.current?.play()
+    } else {
+      tl.current?.pause(0)
+    }
+  }, [isActiveSlide])
+
+  useGSAP(() => {
+    gsapDelay(() => {
+      tl.current = gsap
+        .timeline({
+          paused: true,
+          defaults: {
+            duration: 1,
+            ease: "sine",
+          },
+        })
+        .fromTo(
+          `.${styles.description}`,
+          {opacity: 0, yPercent: 100},
+          {opacity: 1, yPercent: 0},
+          0,
+        )
+        .fromTo(
+          `.${styles.title}`,
+          {opacity: 0, yPercent: 100},
+          {opacity: 1, yPercent: 0},
+          0,
+        )
+        .fromTo(
+          `.${styles.partnersContainer} .FMT__container`,
+          {opacity: 0},
+          {opacity: 1, stagger: 0.25},
+          0,
+        )
     })
-    tl.from(`.${styles.description}`, {opacity: 0, yPercent: 100}, 0)
-      .from(`.${styles.title}`, {opacity: 0, yPercent: 100}, 0)
-      .from(
-        `.${styles.partnersContainer} .FMT__container`,
-        {opacity: 0, stagger: 0.25},
-        0,
-      )
   }, [])
+
   return (
     <section className={styles.container}>
-      <Image
-        src={img as StaticImageData}
-        alt="img"
-        className={styles.img}
-      ></Image>
+      <Image src={img as StaticImageData} alt="img" className={styles.img} />
       <h2 className={styles.title}>
         Our <span className={styles.bold}>Partners</span>
       </h2>
@@ -88,9 +117,9 @@ const Partners = () => {
         Security in Digital Finance.
       </p>
       <div className={styles.partnersContainer}>
-        <Row logos={dataLogos1} direction="right"></Row>
-        <Row logos={dataLogos2} direction="left"></Row>
-        <Row logos={dataLogos1} direction="right"></Row>
+        <Row isPlaying={isActiveSlide} logos={dataLogos1} direction="right" />
+        <Row isPlaying={isActiveSlide} logos={dataLogos2} direction="left" />
+        <Row isPlaying={isActiveSlide} logos={dataLogos1} direction="right" />
       </div>
     </section>
   )
